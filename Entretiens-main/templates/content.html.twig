@@ -122,7 +122,7 @@
                 <span>Nom : <input type="text" name="lname" id="lname"></span>
                 <span>Prénom : <input type="text" name="fname" id="fname"></span>
                 <span>Email : <input type="text" name="mail" id="mail"></span>
-                <button class="slides" type="button" onclick="edit()">Modifier</button>
+{#                <button class="slides" type="button" onclick="edit()">Modifier</button>#}
                 <button class="slides" type="button" onclick="add()">Ajouter un nouveau user</button>
         </div>
     {% endblock %}
@@ -156,8 +156,8 @@
         var table = document.getElementById("table"),rIndex;
         // console.log(("voici la valeur de rindex ",rIndex));
         // console.log('voici le nbr de lignes',table.rows.length);
-        for(var i = 0; i < table.rows.length; i++){
-            console.log('iteration ',i);
+        for(var i = 1; i < table.rows.length; i++){
+            // console.log('iteration ',i);
             table.rows[i].onclick= function (){
                 rIndex=this.rowIndex;
                 console.log((rIndex));
@@ -168,7 +168,7 @@
         }
         // console.log('apres boucle');
         function edit(){
-            console.log("voici la valeur de lname ",document.getElementById("lname").value);
+            // console.log("voici la valeur de lname ",document.getElementById("lname").value);
             table.rows[rIndex].cells[0].innerHTML=document.getElementById("lname").value;
             table.rows[rIndex].cells[1].innerHTML=document.getElementById("fname").value;
             table.rows[rIndex].cells[2].innerHTML=document.getElementById("mail").value;
