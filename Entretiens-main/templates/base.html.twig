@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="author" content="Ikram Chehouani">
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        <style>
+            html {
+                height: 100%;
+            }
+            body {
+                margin:0;
+                padding:0;
+                font-family: sans-serif;
+                background: linear-gradient(#141e30, #243b55);
+            }
+            .center {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 400px;
+                padding: 40px;
+                transform: translate(-50%, -50%);
+                background: rgba(0,0,0,.5);
+                box-sizing: border-box;
+                box-shadow: 0 15px 25px rgba(0,0,0,.6);
+                border-radius: 10px;
+            }
+            .center h1 {
+                margin: 0 0 30px;
+                padding: 0;
+                color: #fff;
+                text-align: center;
+            }
+            .center .user-box {
+                position: relative;
+            }
+            .center .user-box input {
+                width: 100%;
+                padding: 10px 0;
+                font-size: 16px;
+                color: #fff;
+                margin-bottom: 30px;
+                border: none;
+                border-bottom: 1px solid #fff;
+                outline: none;
+                background: transparent;
+            }
+            .center .user-box label {
+                top:0;
+                left: 0;
+                padding: 10px 0;
+                font-size: 16px;
+                color: #fff;
+                pointer-events: none;
+                transition: .5s;
+            }
+            .center .user-box input:focus ,
+            .center .user-box input:valid  {
+                top: -20px;
+                left: 0;
+                color: #03e9f4;
+                font-size: 12px;
+            }
+           .slides {
+               font-size: 16px;
+               font-family: Courier;
+               font-weight: 200;
+               letter-spacing: 1px;
+               padding: 13px 20px 13px;
+               outline: 0;
+               border: 1px solid black;
+               cursor: pointer;
+               position: relative;
+               background-color: rgba(0, 0, 0, 0);
+               user-select: none;
+               -webkit-user-select: none;
+               touch-action: manipulation;
+               margin-top: 40px;
+           }
+            .slides:after {
+                content: "";
+                background-color: #00e9f4;
+                width: 100%;
+                z-index: -1;
+                position: absolute;
+                height: 100%;
+                top: 7px;
+                left: 7px;
+                transition: 0.2s;
+            }
+            .slides:hover:after {
+                top: 0px;
+                left: 0px;
+            }
+            @media (min-width: 768px) {
+                .slides {
+                    padding: 13px 50px 13px;
+                }
+            }
+        </style>
+        <div class="center">
+            <h1>Hello World !!</h1>
+                {% block body %}
+            <div class="user-box">
+                {{ form_start(form) }}
+                {{ form_rest(form) }}
+            </div>
+            <button class="slides" type="submit">Submit</button>
+            {{ form_end(form) }}
+        </div>
+                {% endblock %}
+    </body>
+</html>

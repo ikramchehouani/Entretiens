@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="author" content="Ikram Chehouani">
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    {% block body %}
+    <style>
+        html{
+            padding:0;
+            font-family: sans-serif;
+            background: #24374e;
+        }
+        #table td, #table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            width: 100%;
+            background: #adaaaa;
+        }
+        table{
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        input[type=text], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #table:hover {
+            background-color: #ffffff;
+        }
+        #table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background: linear-gradient(#141e30, #243b55);
+            color: white;
+        }
+        input,span{
+            margin-top:40px;
+        }
+        span{
+            color:white;
+        }
+        .slides {
+            font-size: 14px;
+            font-family: Courier;
+            font-weight: 200;
+            letter-spacing: 1px;
+            padding: 13px 20px 13px;
+            outline: 0;
+            border: 1px solid black;
+            cursor: pointer;
+            position: relative;
+            background-color: rgba(0, 0, 0, 0);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            margin-top: 40px;
+            margin-right: 40px;
+            float: right;
+        }
+        .slides:after {
+            content: "";
+            background-color: #00e9f4;
+            width: 100%;
+            z-index: -1;
+            position: absolute;
+            height: 100%;
+            top: 7px;
+            left: 7px;
+            transition: 0.2s;
+        }
+        .slides:hover:after {
+            top: 0px;
+            left: 0px;
+        }
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 700px;
+            padding: 40px;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,.5);
+            box-sizing: border-box;
+            box-shadow: 0 15px 25px rgba(0,0,0,.6);
+            border-radius: 10px;
+        }
+    </style>
+        <div class="center">
+            <h1 style="margin: 40px;padding: 0;color: white;text-align: center;">Hello Again</h1>
+            <table id="table">
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>{{ nom }}</td>
+                    <td>{{ prenom }}</td>
+                    <td>{{ email }}</td>
+                    <td><button type="button" onclick="supprimer(this)">-</button></td>
+                </tr>
+            </table>
+                <span>Nom : <input type="text" name="lname" id="lname"></span>
+                <span>Prénom : <input type="text" name="fname" id="fname"></span>
+                <span>Email : <input type="text" name="mail" id="mail"></span>
+                <button class="slides" type="button" onclick="edit()">Modifier</button>
+                <button class="slides" type="button" onclick="add()">Ajouter un nouveau user</button>
+        </div>
+    {% endblock %}
+    <script>
+        function add(){
+            var elt=document.createElement("tr");
+            elt.class="lignes";
+            document.getElementById("table").appendChild(elt);
+            var cases1=document.createElement("td");
+            cases1.innerHTML=prompt("Nom :");
+            elt.appendChild((cases1));
+            var cases2=document.createElement("td");
+            cases2.innerHTML=prompt("Prénom :");
+            elt.appendChild((cases2));
+            var cases3=document.createElement("td");
+            cases3.innerHTML=prompt("Email :");
+            elt.appendChild((cases3));
+            var cases4=document.createElement("td");
+            var b=document.createElement("button");
+            b.type="button";
+            b.onclick=function(){
+                this.parentNode.parentNode.parentNode.removeChild((this.parentNode.parentNode));
+            }
+            b.innerHTML="-";
+            cases4.appendChild(b);
+            elt.appendChild(cases4);
+        }
+        function supprimer(elt){
+            elt.parentNode.parentNode.parentNode.removeChild((elt.parentNode.parentNode));
+        }
+        var table = document.getElementById("table"),rIndex;
+        // console.log(("voici la valeur de rindex ",rIndex));
+        // console.log('voici le nbr de lignes',table.rows.length);
+        for(var i = 0; i < table.rows.length; i++){
+            console.log('iteration ',i);
+            table.rows[i].onclick= function (){
+                rIndex=this.rowIndex;
+                console.log((rIndex));
+                document.getElementById(("lname")).value=this.cells[0].innerHTML;
+                document.getElementById(("fname")).value=this.cells[1].innerHTML;
+                document.getElementById(("mail")).value=this.cells[2].innerHTML;
+            };
+        }
+        // console.log('apres boucle');
+        function edit(){
+            console.log("voici la valeur de lname ",document.getElementById("lname").value);
+            table.rows[rIndex].cells[0].innerHTML=document.getElementById("lname").value;
+            table.rows[rIndex].cells[1].innerHTML=document.getElementById("fname").value;
+            table.rows[rIndex].cells[2].innerHTML=document.getElementById("mail").value;
+        }
+    </script>
+    </body>
+</html>
